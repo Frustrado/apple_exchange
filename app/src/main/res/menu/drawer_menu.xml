@@ -6,15 +6,19 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Strona główną"/>
+            android:title="Strona główna"/>
+
+        <item android:id="@+id/nav_browse"
+            android:icon="@drawable/ic_browse"
+            android:title="Przeglądaj ogłoszenia"/>
 
         <item android:id="@+id/nav_add_new"
             android:icon="@drawable/ic_add_new"
             android:title="Nowe ogłoszenie"/>
 
-        <item android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profil"/>
+        <item android:id="@+id/nav_login"
+            android:icon="@drawable/ic_login"
+            android:title="Zaloguj się"/>
     </group>
 
 
