@@ -33,14 +33,14 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/circle"
                 android:padding="10dp"
-                android:src="@mipmap/ic_authentication_round"
+                android:src="@drawable/ic_register"
                 android:layout_height="50dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="LOGOWANIE"
+                android:text="REJESTRACJA"
                 android:textSize="22sp"
                 android:textColor="@color/white"
                 android:fontFamily="sans-serif-medium"
@@ -58,9 +58,76 @@
             android:rotation="45"
             android:layout_height="20dp" />
 
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout0"
+            android:layout_below="@id/imageView1"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView_userIcon0"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_user"
+                android:padding="3dp"
+                android:tint="@color/white"
+                android:background="@color/colorPrimary2"
+                android:layout_height="40dp" />
+
+            <EditText
+
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@id/imageView_userIcon0"
+                android:background="@color/editTextBG"
+                android:hint="Imie"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageView_userIcon0"
+                />
+
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
-            android:layout_below="@id/imageView1"
+            android:layout_below="@id/RelativeLayout0"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView_userIcon1"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_phone"
+                android:padding="3dp"
+                android:tint="@color/white"
+                android:background="@color/colorPrimary2"
+                android:layout_height="40dp" />
+
+            <EditText
+
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@id/imageView_userIcon1"
+                android:background="@color/editTextBG"
+                android:hint="Nr telefonu"
+                android:textSize="15sp"
+                android:inputType="phone"
+                android:layout_toRightOf="@id/imageView_userIcon1"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout2"
+            android:layout_below="@id/RelativeLayout1"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="20dp"
@@ -69,7 +136,7 @@
             <ImageView
                 android:id="@+id/imageView_userIcon"
                 android:layout_width="40dp"
-                android:src="@drawable/ic_user"
+                android:src="@drawable/ic_email"
                 android:padding="3dp"
                 android:tint="@color/white"
                 android:background="@color/colorPrimary2"
@@ -90,8 +157,8 @@
 
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/RelativeLayout2"
-            android:layout_below="@id/RelativeLayout1"
+            android:id="@+id/RelativeLayout3"
+            android:layout_below="@id/RelativeLayout2"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="20dp"
@@ -121,67 +188,64 @@
                 />
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:id="@+id/RelativeLayout3"
+            android:id="@+id/RelativeLayout4"
+            android:layout_below="@id/RelativeLayout3"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RelativeLayout2"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp">
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView_passwordIcon2"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_password"
+                android:padding="6dp"
+                android:tint="@color/white"
+                android:background="@color/colorPrimary2"
+                android:layout_height="40dp" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
+            <EditText
+
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColor"
-                android:layout_centerVertical="true"
-                android:text="Zapamiętaj mnie"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:text="Nie pamiętam hasła"
-                android:background="@color/transparent"
-                android:textColor="@color/textColor"
-                android:textSize="13sp"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@id/imageView_passwordIcon2"
+                android:background="@color/editTextBG"
+                android:hint="Powtórz hasło"
+                android:inputType="textPassword"
+                android:textSize="15sp"
+                android:layout_toRightOf="@id/imageView_passwordIcon2"
+                />
 
+        </RelativeLayout>
         <Button
             android:id="@+id/button_singin"
-            android:layout_below="@id/RelativeLayout3"
+            android:layout_below="@id/RelativeLayout4"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary2"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:text="ZALOGUJ SIĘ"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/white" />
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layerType="software"
-            android:src="@drawable/dash"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@id/button_singin" />
-
-        <Button
-            android:id="@+id/button_singup"
-            android:layout_below="@id/imageView2"
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimary2"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
             android:text="ZAREJESTRUJ SIĘ"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_below="@id/button_singin"
+            android:text="Masz już konto? Zaloguj się tutaj"
+            android:background="@color/transparent"
+            android:textColor="@color/textColor"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
 
     </RelativeLayout>
     
