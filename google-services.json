@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "914417150204",
+    "firebase_url": "https://appleexchange-40a3a.firebaseio.com",
+    "project_id": "appleexchange-40a3a",
+    "storage_bucket": "appleexchange-40a3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914417150204:android:d799c4516cf6c8ad",
+        "android_client_info": {
+          "package_name": "com.example.max.appleexchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914417150204-jbm98i0lh20ks3edivup4i312fbjucec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.max.appleexchange",
+            "certificate_hash": "b8f91813f0dfcc563d7b74ad7bc39c21fb20e242"
+          }
+        },
+        {
+          "client_id": "914417150204-4123gll35f6dr780mjtpgdt7d9ru4tij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByMd36DfVYg3zDJcUD4lwzWpfjirq1ZqY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914417150204-4123gll35f6dr780mjtpgdt7d9ru4tij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
