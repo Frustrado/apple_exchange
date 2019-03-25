@@ -80,7 +80,7 @@
                 android:layout_height="40dp" />
 
             <EditText
-
+                android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:paddingLeft="20dp"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_height="40dp" />
 
             <EditText
-
+                android:id="@+id/editTextPhonenr"
                 android:layout_width="match_parent"
                 android:paddingLeft="20dp"
                 android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                 android:layout_height="40dp" />
 
             <EditText
-
+                android:id="@+id/editTextPassword2"
                 android:layout_width="match_parent"
                 android:paddingLeft="20dp"
                 android:layout_height="wrap_content"

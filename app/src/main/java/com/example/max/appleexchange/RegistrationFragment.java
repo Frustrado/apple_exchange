@@ -14,22 +14,35 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.max.appleexchange.User.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.concurrent.Executor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
 public class RegistrationFragment extends Fragment {
     private FirebaseAuth mAuth;
+    //private DatabaseReference mDatabase;
+    private FirebaseFirestore mDatabase;
+
     private EditText email;
     private EditText password;
     private Button register;
+    private EditText name;
+    private EditText phonenr;
     private ProgressBar progressBar;
     @Nullable
     @Override
@@ -39,8 +52,10 @@ public class RegistrationFragment extends Fragment {
         email= v.findViewById(R.id.editTextEmail);
         password=v.findViewById(R.id.editTextPassword);
         register=v.findViewById(R.id.button_singin);
+        name=v.findViewById(R.id.editTextName);
+        phonenr=v.findViewById(R.id.editTextPhonenr);
         mAuth = FirebaseAuth.getInstance();
-
+        mDatabase = FirebaseFirestore.getInstance();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +72,7 @@ public class RegistrationFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            writeNewUser(task.getResult().getUser().getUid(),name.getText().toString(),phonenr.getText().toString());
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
@@ -74,5 +89,30 @@ public class RegistrationFragment extends Fragment {
                     }
                 });
     }
+
+
+
+
+    private void writeNewUser(String userId, String name, String phonenr)
+    {
+        Map<String,Object> user=new HashMap<>();
+        user.put("name",name);
+        user.put("phone",phonenr);
+        mDatabase.collection("users").document(userId).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "UserDatabase:success");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "UserDatabase:failure");
+                    }
+                });
+
+    }
+
 
 }
