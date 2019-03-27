@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Boolean login=true;
     NavigationView navigationView;
     private FragmentManager fragmentManager;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_login:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new LoginFragment()).commit();
-                login=true;
-                after_login_state();
+
 
                 break;
 
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
-                login=false;
-                after_login_state();
+
+                signOut(FirebaseAuth.getInstance());
                 break;
 
             case R.id.nav_profile:
@@ -112,17 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-    public void after_login_state()
-    {
-        if(login==true) {
-            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_profile).setVisible(true);
-        }else{
+
+    private void signOut(FirebaseAuth mAuth) {
+        if (mAuth != null) {
+            mAuth.signOut();
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
         }
-
     }
+
 }
