@@ -3,4 +3,50 @@
 
     <string name="navigation_drawer_open">Otwórz pasek nawigacyjny</string>
     <string name="navigation_drawer_close">Zamknij pasek nawigacyjny</string>
+    <string-array name="typeOfAdvertisement">
+        <item>Sprzedaż</item>
+        <item>Kupno</item>
+    </string-array>
+
+    <string-array name="varietyOfApple">
+        <item>Antonówka</item>
+        <item>Boskoop</item>
+        <item>Cortland</item>
+        <item>Delikates</item>
+        <item>Gala</item>
+        <item>Golden Delicious</item>
+        <item>Idared</item>
+        <item>Jonagold</item>
+        <item>Ligol</item>
+        <item>Lobo</item>
+        <item>Paulared</item>
+        <item>Szampion</item>
+
+    </string-array>
+
+    <string-array name="voivodeship">
+        <item>mazowieckie</item>
+        <item>kujawsko-pomorskie</item>
+        <item>lubelskie</item>
+        <item>wielkopolskie</item>
+        <item>lubuskie</item>
+        <item>łódzkie</item>
+        <item>małopolskie</item>
+        <item>opolskie</item>
+        <item>podkarpackie</item>
+        <item>podlaskie</item>
+        <item>pomorskie</item>
+        <item>śląskie</item>
+        <item>świętokrzyskie</item>
+        <item>warmińsko-mazurskie</item>
+        <item>zachodniopomorskie</item>
+        <item>dolnośląskie</item>
+    </string-array>
+
+    <string-array name="kindOfApple">
+        <item>deserowe</item>
+        <item>przemysłowe</item>
+    </string-array>
+
+
 </resources>
