@@ -2,86 +2,89 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white">
+    android:focusableInTouchMode="true">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:id="@+id/toolbar1"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-        <android.support.v7.widget.CardView
-            android:layout_below="@+id/toolbar1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:cardElevation="3dp"
-            app:cardCornerRadius="10dp"
-            app:cardUseCompatPadding="true"
-            app:cardPreventCornerOverlap="false"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp">
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/RelativeLayout0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/LinearLayout1"
-                    android:orientation="vertical"
-                    android:background="@color/colorPrimary2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
+                    android:background="@color/colorPrimary2"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/circle"
                         android:padding="5dp"
-                        android:src="@drawable/ic_add"
-                        android:layout_height="50dp" />
+                        android:src="@drawable/ic_add" />
 
                     <TextView
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
-                        android:text="NOWE OGŁOSZENIE"
-                        android:textSize="22sp"
-                        android:textColor="@color/white"
                         android:fontFamily="sans-serif-medium"
-                        android:layout_height="wrap_content" />
+                        android:text="NOWE OGŁOSZENIE"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
 
                 </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="20dp"
-                android:layout_below="@id/LinearLayout1"
-                android:src="@drawable/square"
-                android:layout_marginTop="-10dp"
-                android:layout_centerHorizontal="true"
-                android:rotation="45"
-                android:layout_height="20dp" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/LinearLayout1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-10dp"
+                    android:rotation="45"
+                    android:src="@drawable/square" />
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/imageView1"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -89,32 +92,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Rodzaj ogłoszenia"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <Spinner
                         android:id="@+id/spinner1"
+                        style="@style/SpinnerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView1"
-                        android:spinnerMode="dropdown"
                         android:background="@drawable/spinner"
-                        style="@style/SpinnerStyle"
-                        >
+                        android:spinnerMode="dropdown">
 
                     </Spinner>
-
 
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout1"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -122,29 +123,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Odmiana"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <Spinner
                         android:id="@+id/spinner2"
+                        style="@style/SpinnerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView2"
-                        android:spinnerMode="dropdown"
                         android:background="@drawable/spinner"
-                        style="@style/SpinnerStyle"
-                        >
+                        android:spinnerMode="dropdown">
 
                     </Spinner>
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/RelativeLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout2"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -152,23 +153,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Miejscowość"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <EditText
                         android:id="@+id/editTextCity"
-                        android:layout_below="@+id/textView5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView5" />
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/RelativeLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout5"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -176,17 +178,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Województwo"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <Spinner
                         android:id="@+id/spinner3"
+                        style="@style/SpinnerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView3"
-                        android:spinnerMode="dropdown"
                         android:background="@drawable/spinner"
-                        style="@style/SpinnerStyle"
-                        >
+                        android:spinnerMode="dropdown">
 
                     </Spinner>
 
@@ -194,12 +195,12 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout3"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -207,24 +208,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Cena za kg (zł)"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <EditText
                         android:id="@+id/editTextPrice"
-                        android:layout_below="@+id/textView4"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView4" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout4"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -232,18 +233,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Typ jabłka"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
                     <Spinner
                         android:id="@+id/spinner4"
+                        style="@style/SpinnerStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView6"
-                        android:spinnerMode="dropdown"
 
                         android:background="@drawable/spinner"
-                        style="@style/SpinnerStyle"
-                        >
+                        android:spinnerMode="dropdown">
 
                     </Spinner>
 
@@ -251,25 +251,25 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout6"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <Button
                         android:id="@+id/button_addphoto"
                         android:layout_width="match_parent"
-                        android:background="@color/colorAccent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:paddingRight="20dp"
-                        android:layout_toLeftOf="@id/imgView"
                         android:layout_alignBottom="@id/imgView"
-                        android:text="DODAJ ZDJECIE JABŁEK"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@id/imgView"
+                        android:background="@color/colorAccent"
                         android:fontFamily="sans-serif-medium"
+                        android:paddingRight="20dp"
+                        android:text="DODAJ ZDJECIE JABŁEK"
                         android:textColor="@color/white" />
 
                     <ImageView
@@ -277,18 +277,17 @@
                         android:id="@+id/imgView"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentRight="true"
-                        />
+                        android:layout_alignParentRight="true" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/RelativeLayout7"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginRight="25dp">
 
 
                     <TextView
@@ -296,7 +295,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Treść ogłoszenia"
-                        android:textColor="@color/textColor"/>
+                        android:textColor="@color/textColor" />
 
 
                     <EditText
@@ -315,20 +314,20 @@
 
                 <Button
                     android:id="@+id/button_addAdvertisement"
-                    android:layout_below="@id/RelativeLayout8"
                     android:layout_width="match_parent"
-                    android:background="@color/colorPrimary2"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/RelativeLayout8"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginBottom="20dp"
-                    android:text="DODAJ OGŁOSZENIE"
+                    android:background="@color/colorPrimary2"
                     android:fontFamily="sans-serif-medium"
+                    android:text="DODAJ OGŁOSZENIE"
                     android:textColor="@color/white" />
 
             </RelativeLayout>
-            </ScrollView>
-        </android.support.v7.widget.CardView>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

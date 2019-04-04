@@ -86,9 +86,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
             case R.id.nav_browse:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new BrowseFragment()).commit();
-
+              /*  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new BrowseFragment()).commit();*/
+                intent = new Intent(this,BrowseActivity.class);
+                startActivity(intent);
 
                 break;
 
