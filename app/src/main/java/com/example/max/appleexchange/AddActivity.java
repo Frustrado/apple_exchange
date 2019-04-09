@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,7 +34,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
@@ -53,9 +53,6 @@ public class AddActivity extends AppCompatActivity {
     private Button addPhoto;
     private ImageView imageView;
     private Uri imageUri;
-    private final int PICK_IMAGE_REQUEST = 1;
-    private int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE;
-    List<Uri> mSelected;
     private ProgressBar progressBar;
     String uploadId;
     //Firebase
@@ -218,7 +215,10 @@ public class AddActivity extends AppCompatActivity {
                     }
                 });
         Log.d(TAG, "UploadedphotoToDatabase:success"  + uploadId);
-
+        Toast.makeText(this, "Ogłoszenie zostało dodane",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
 
     }
 
@@ -276,6 +276,7 @@ public class AddActivity extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
 
    /* private void uploadFile() {
         if (imageUri != null){

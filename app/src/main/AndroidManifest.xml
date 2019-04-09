@@ -25,6 +25,8 @@
             android:theme="@style/AppTheme.NoActionBar2"/>
         <activity android:name=".BrowseActivity"
             android:theme="@style/AppTheme.NoActionBar2"/>
+        <activity android:name=".MyAdvertisementsActivity"
+            android:theme="@style/AppTheme.NoActionBar2"/>
     </application>
 
 </manifest>

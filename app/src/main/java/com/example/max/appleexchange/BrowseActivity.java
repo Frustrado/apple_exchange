@@ -7,10 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.max.appleexchange.old_unused.Advertisement;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,11 +23,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
+
+public class BrowseActivity extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView recyclerView;
-    private ImageAdapter imageAdapter;
+    private ImageAdapterBrowse imageAdapter;
 
     private FirebaseFirestore databaseReference;
+    private FirebaseFirestore databaseReferenceUsers;
     private List<Upload> mUploads;
     private List<Advertisement> mAdvertisements;
 
@@ -54,9 +60,12 @@ public class BrowseActivity extends AppCompatActivity {
         progressCircle=findViewById(R.id.progress_circle);
 
         databaseReference=FirebaseFirestore.getInstance();
+        databaseReferenceUsers=FirebaseFirestore.getInstance();
         mUploads = new ArrayList<>();
         mAdvertisements = new ArrayList<>();
-
+        imageAdapter = new ImageAdapterBrowse(BrowseActivity.this,mUploads);
+        recyclerView.setAdapter(imageAdapter);
+        imageAdapter.setOnItemClickListener(BrowseActivity.this);
         databaseReference.collection("advertisements").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot snapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
@@ -64,14 +73,32 @@ public class BrowseActivity extends AppCompatActivity {
                     System.err.println("Listen failed:" + e);
                     return;
                 }
-                for (DocumentSnapshot doc : snapshots) {
-                    Upload upload= new Upload();
-                    upload.setName(doc.getString("text"));
-                    upload.setImageUrl(doc.getString("photo"));
-                    mUploads.add(upload);
+                for (final DocumentSnapshot doc : snapshots) {
+                    final Upload upload= new Upload();
+                    databaseReferenceUsers.collection("users").document(doc.getString("userId")).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                            Log.d(TAG, "eh" +Integer.toString(documentSnapshot.getLong("phone").intValue()));
+                            upload.setPhone(Integer.toString(documentSnapshot.getLong("phone").intValue()));
+                            upload.setCity(doc.getString("city"));
+                            upload.setImageUrl(doc.getString("photo"));
+                            upload.setKind(doc.getString("kind"));
+                            upload.setType(doc.getString("type"));
+                            upload.setPrice(doc.getString("price") + "zł");
+
+                            upload.setVoivodeship(doc.getString("voivodeship"));
+                            upload.setVariety(doc.getString("variety"));
+
+
+                            mUploads.add(upload);
+                        }
+                    });
+
+
+
                 }
-                imageAdapter = new ImageAdapter(BrowseActivity.this,mUploads);
-                recyclerView.setAdapter(imageAdapter);
+
+                imageAdapter.notifyDataSetChanged();
                 progressCircle.setVisibility(View.INVISIBLE);
 
             }
@@ -79,40 +106,15 @@ public class BrowseActivity extends AppCompatActivity {
 
 
 
+    }
 
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(this,"Kliknięcie" + position,Toast.LENGTH_SHORT).show();
+    }
 
-
-
-
-
-
-
-
-        /*uploads = new ArrayList<>();
-
-        databaseReference = FirebaseFirestore.getInstance();
-
-        Query query = databaseReference.collection("advertisements");
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Toast.makeText(BrowseActivity.this,"Blad wczytania danych",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (documentSnapshot != null && documentSnapshot.exists()) {
-                    for(DocumentSnapshot postSnapshot : documentSnapshot.){
-                        Upload upload=postSnapshot
-                    }
-                    System.out.println("Current data: " + documentSnapshot.getData());
-                } else {
-                    System.out.print("Current data: null");
-                }
-            }
-        });
-*/
-
+    @Override
+    public void onDeleteClick(int position) {
 
     }
 }

@@ -11,26 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.ImageViewHolder> {
 
     private Context context;
     private List<Upload> uploadList;
     private OnItemClickListener mListener;
 
-    public ImageAdapter(Context context, List<Upload>  uploads){
-        this.context=context;
-        uploadList=uploads;
+    public ImageAdapterBrowse(Context context, List<Upload> uploads) {
+        this.context = context;
+        uploadList = uploads;
     }
 
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v= LayoutInflater.from(context).inflate(R.layout.image_item,viewGroup,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.image_item, viewGroup, false);
         return new ImageViewHolder(v);
     }
 
@@ -51,6 +52,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 .fit()
                 .centerCrop()
                 .into(imageViewHolder.imageView);
+
+
+
     }
 
     @Override
@@ -58,8 +62,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return uploadList.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener,View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //public TextView textViewName;
         public TextView textViewKind;
         public TextView textViewType;
@@ -74,17 +77,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             super(itemView);
 
             //textViewName=itemView.findViewById(R.id.text_view_name);
-            textViewCity=itemView.findViewById(R.id.text_view_city);
-            imageView=itemView.findViewById(R.id.image_view_upload);
-            textViewKind=itemView.findViewById(R.id.text_view_kind);
-            textViewType=itemView.findViewById(R.id.text_view_type);
-            textViewVoivodeship=itemView.findViewById(R.id.text_view_Voivodeship);
-            textViewPhone=itemView.findViewById(R.id.text_view_phone);
-            textViewVariety=itemView.findViewById(R.id.text_view_variety);
-            textViewPrice=itemView.findViewById(R.id.text_view_price);
-
+            textViewCity = itemView.findViewById(R.id.text_view_city);
+            imageView = itemView.findViewById(R.id.image_view_upload);
+            textViewKind = itemView.findViewById(R.id.text_view_kind);
+            textViewType = itemView.findViewById(R.id.text_view_type);
+            textViewVoivodeship = itemView.findViewById(R.id.text_view_Voivodeship);
+            textViewPhone = itemView.findViewById(R.id.text_view_phone);
+            textViewVariety = itemView.findViewById(R.id.text_view_variety);
+            textViewPrice = itemView.findViewById(R.id.text_view_price);
             itemView.setOnClickListener(this);
-            itemView.setOnCreateContextMenuListener(this);
 
         }
 
@@ -98,34 +99,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             }
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Wybierz akcje");
-            MenuItem delete = menu.add(Menu.NONE,1,1,"Usuń");
 
-            delete.setOnMenuItemClickListener(this);
         }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            if(mListener!=null){
-                int position = getAdapterPosition();
-                if(position!=RecyclerView.NO_POSITION){
-                    switch(item.getItemId()){
-                        case 1:
-                            mListener.onDeleteClick(position);
-                            return true;
-
-                    }
-                }
-            }
-            return false;
-        }
-    }
-
-
     public  void setOnItemClickListener(OnItemClickListener listener){
         mListener=listener;
-
     }
 }

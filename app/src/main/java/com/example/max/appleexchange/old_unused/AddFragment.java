@@ -1,21 +1,13 @@
-package com.example.max.appleexchange;
+package com.example.max.appleexchange.old_unused;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,31 +19,20 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.max.appleexchange.startActivity.ActivityResultBus;
-import com.example.max.appleexchange.startActivity.ActivityResultEvent;
-import com.example.max.appleexchange.startActivity.Glide4Engine;
+import com.example.max.appleexchange.HomeFragment;
+import com.example.max.appleexchange.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.common.eventbus.Subscribe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.filter.Filter;
-import com.zhihu.matisse.internal.entity.IncapableCause;
-import com.zhihu.matisse.internal.entity.Item;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 public class AddFragment extends Fragment {
@@ -80,7 +61,7 @@ public class AddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add,container,false);
+        View v = inflater.inflate(R.layout.activity_add,container,false);
 
 
         mAuth = FirebaseAuth.getInstance();

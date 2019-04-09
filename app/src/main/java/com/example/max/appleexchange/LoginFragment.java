@@ -1,15 +1,11 @@
 package com.example.max.appleexchange;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import static android.support.constraint.Constraints.TAG;
 
 public class LoginFragment extends Fragment {
-    private MainActivity mainActivity;
-    private Toolbar toolbar;
+
     private Button login;
     private Button register;
     private EditText email;
@@ -39,7 +34,6 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       // return inflater.inflate(R.layout.fragment_login,container,false);
 
         View v = inflater.inflate(R.layout.fragment_login,container,false);
         mAuth = FirebaseAuth.getInstance();
@@ -83,7 +77,8 @@ public class LoginFragment extends Fragment {
                             email.getText().clear();
                             password.getText().clear();
                             changeFragment();
-                            //updateUI(user);
+                            Toast.makeText(getActivity(), "Logowanie powiodło się",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
