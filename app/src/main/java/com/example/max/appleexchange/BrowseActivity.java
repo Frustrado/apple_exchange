@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.max.appleexchange.old_unused.Advertisement;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,13 +26,12 @@ import static android.content.ContentValues.TAG;
 public class BrowseActivity extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView recyclerView;
     private ImageAdapterBrowse imageAdapter;
+    private ProgressBar progressCircle;
 
     private FirebaseFirestore databaseReference;
     private FirebaseFirestore databaseReferenceUsers;
-    private List<Upload> mUploads;
-    private List<Advertisement> mAdvertisements;
 
-    private ProgressBar progressCircle;
+    private List<Upload> mUploads;
 
 
     @Override
@@ -61,11 +58,12 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
         databaseReference=FirebaseFirestore.getInstance();
         databaseReferenceUsers=FirebaseFirestore.getInstance();
+
         mUploads = new ArrayList<>();
-        mAdvertisements = new ArrayList<>();
         imageAdapter = new ImageAdapterBrowse(BrowseActivity.this,mUploads);
         recyclerView.setAdapter(imageAdapter);
         imageAdapter.setOnItemClickListener(BrowseActivity.this);
+
         databaseReference.collection("advertisements").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot snapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
@@ -91,6 +89,8 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
 
                             mUploads.add(upload);
+                            imageAdapter.notifyDataSetChanged();
+
                         }
                     });
 
@@ -98,7 +98,7 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
                 }
 
-                imageAdapter.notifyDataSetChanged();
+
                 progressCircle.setVisibility(View.INVISIBLE);
 
             }
@@ -110,6 +110,7 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
     @Override
     public void onItemClick(int position) {
+        imageAdapter.getFilter().filter("mazowieckie");
         Toast.makeText(this,"Kliknięcie" + position,Toast.LENGTH_SHORT).show();
     }
 

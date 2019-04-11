@@ -128,6 +128,7 @@ public class MyAdvertisementsActivity extends AppCompatActivity implements OnIte
 
                                             mUploads.add(upload);
                                             Log.d(TAG, "fourth" );
+                                            imageAdapter.notifyDataSetChanged();
                                         }
 
                                     });
@@ -135,7 +136,7 @@ public class MyAdvertisementsActivity extends AppCompatActivity implements OnIte
                         }
 
                         Log.d(TAG, "fifth" );
-                        imageAdapter.notifyDataSetChanged();
+
                         progressCircle.setVisibility(View.INVISIBLE);
 
                     }

@@ -3,29 +3,33 @@ package com.example.max.appleexchange;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.ImageViewHolder> {
+import static android.content.ContentValues.TAG;
+
+public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.ImageViewHolder> implements Filterable{
 
     private Context context;
     private List<Upload> uploadList;
+    private List<Upload> uploadFilter;
     private OnItemClickListener mListener;
 
     public ImageAdapterBrowse(Context context, List<Upload> uploads) {
         this.context = context;
         uploadList = uploads;
+        uploadFilter = uploads;
     }
 
     @NonNull
@@ -37,7 +41,7 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
-        Upload uploadCurrent = uploadList.get(i);
+        Upload uploadCurrent = uploadFilter.get(i);
         //imageViewHolder.textViewName.setText(uploadCurrent.getName());
         imageViewHolder.textViewKind.setText(uploadCurrent.getKind());
         imageViewHolder.textViewType.setText(uploadCurrent.getType());
@@ -59,8 +63,50 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
 
     @Override
     public int getItemCount() {
-        return uploadList.size();
+        return uploadFilter.size();
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String query = charSequence.toString();
+
+                List<Upload> filtered = new ArrayList<>();
+                Log.d(TAG, "1");
+                if (query.isEmpty()) {
+                    Log.d(TAG, "2");
+                    filtered = uploadList;
+                } else {
+                    Log.d(TAG, "3" + uploadList.isEmpty());
+                    for (Upload voi : uploadList) {
+                        if (voi.getVoivodeship().equals("mazowieckie")) {
+                            Log.d(TAG, "4");
+                            filtered.add(voi);
+                        }
+                    }
+                }
+
+                FilterResults results = new FilterResults();
+                results.count = filtered.size();
+                results.values = filtered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults results) {
+                uploadFilter = (ArrayList<Upload>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public interface MoviesAdapterListener {
+        void onSelected(String item);
+    }
+
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //public TextView textViewName;
@@ -76,7 +122,6 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //textViewName=itemView.findViewById(R.id.text_view_name);
             textViewCity = itemView.findViewById(R.id.text_view_city);
             imageView = itemView.findViewById(R.id.image_view_upload);
             textViewKind = itemView.findViewById(R.id.text_view_kind);
