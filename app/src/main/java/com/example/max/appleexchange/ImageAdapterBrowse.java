@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -25,11 +26,18 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
     private List<Upload> uploadList;
     private List<Upload> uploadFilter;
     private OnItemClickListener mListener;
+    List<String> voivodeships;
+    List<String> kind;
+    List<String> type;
 
-    public ImageAdapterBrowse(Context context, List<Upload> uploads) {
+
+    public ImageAdapterBrowse(Context context, List<Upload> uploads, List<String> voi,List<String> ki,List<String> typ) {
         this.context = context;
         uploadList = uploads;
         uploadFilter = uploads;
+        voivodeships=voi;
+        kind=ki;
+        type=typ;
     }
 
     @NonNull
@@ -73,7 +81,7 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String query = charSequence.toString();
-
+                //List valid = Arrays.asList(voivodeships);
                 List<Upload> filtered = new ArrayList<>();
                 Log.d(TAG, "1");
                 if (query.isEmpty()) {
@@ -82,7 +90,8 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
                 } else {
                     Log.d(TAG, "3" + uploadList.isEmpty());
                     for (Upload voi : uploadList) {
-                        if (voi.getVoivodeship().equals("mazowieckie")) {
+                        if(!voivodeships.isEmpty()&&!kind.isEmpty()&&!type.isEmpty())
+                        if (voivodeships.contains(voi.getVoivodeship())&&kind.contains(voi.getKind())&&type.contains(voi.getType())) {
                             Log.d(TAG, "4");
                             filtered.add(voi);
                         }
