@@ -128,6 +128,7 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
                         public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                             Log.d(TAG, "eh" +Integer.toString(documentSnapshot.getLong("phone").intValue()));
                             upload.setPhone(Integer.toString(documentSnapshot.getLong("phone").intValue()));
+                            upload.setText(doc.getString("text"));
                             upload.setCity(doc.getString("city"));
                             upload.setImageUrl(doc.getString("photo"));
                             upload.setKind(doc.getString("kind"));
@@ -136,6 +137,8 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
                             upload.setVoivodeship(doc.getString("voivodeship"));
                             upload.setVariety(doc.getString("variety"));
+
+                            upload.setName(documentSnapshot.getString("name"));
 
 
                             mUploads.add(upload);
@@ -162,7 +165,17 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
 
     @Override
     public void onItemClick(int position) {
-       // imageAdapter.getFilter().filter("mazowieckie");
+        Upload selectedItem = mUploads.get(position);
+        final String selectedKey = selectedItem.getKey();
+        //Log.d(TAG, "bundle porbrane " + selectedItem.getName());
+        AdvertisementFragment advertisementFragment=new AdvertisementFragment();
+        recyclerView.setVisibility(View.GONE);
+
+        Bundle bundle2 = new Bundle();
+        bundle2.putSerializable("selecteditem",selectedItem);
+        advertisementFragment.setArguments(bundle2);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,advertisementFragment).commit();
+
         Toast.makeText(this,"Kliknięcie" + position,Toast.LENGTH_SHORT).show();
     }
 

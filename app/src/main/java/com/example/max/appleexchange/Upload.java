@@ -2,7 +2,9 @@ package com.example.max.appleexchange;
 
 import com.google.firebase.database.Exclude;
 
-class Upload {
+import java.io.Serializable;
+
+class Upload implements Serializable {
 
     private String mName;
     private String mImageUrl;
@@ -13,6 +15,7 @@ class Upload {
     private String mVariety;
     private String mPrice;
     private String mCity;
+    private String mText;
 
     private String mKey;
 
@@ -20,7 +23,9 @@ class Upload {
         //empty constructor needed
     }
 
-    public Upload(String name, String imageUrl, String kind,String type,String variety,String price, String voivodeship, String phone, String city ) {
+
+
+    public Upload(String name, String imageUrl, String kind, String type, String variety, String price, String voivodeship, String phone, String city, String text ) {
         if (name.trim().equals("")) {
             name = "No Name";
         }
@@ -34,6 +39,7 @@ class Upload {
         mVariety=variety;
         mPrice=price;
         mCity=city;
+        mText=text;
     }
 
     public String getName() {
@@ -102,6 +108,15 @@ class Upload {
     }
     public void setCity(String city) {
         this.mCity = city;
+    }
+
+
+    public String getText() {
+        return mText;
+    }
+
+    public void setText(String mText) {
+        this.mText = mText;
     }
 
     @Exclude

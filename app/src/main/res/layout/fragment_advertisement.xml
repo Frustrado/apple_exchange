@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:paddingTop="?attr/actionBarSize"
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Phone"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Name"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_phone"
+            />
+
+        <TextView
+            android:id="@+id/text_view_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="City"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_name"
+            />
+
+        <TextView
+            android:id="@+id/text_view_Voivodeship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Voivodeship"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_city"
+            />
+
+        <TextView
+            android:id="@+id/text_view_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Price"
+            android:layout_alignParentRight="true"
+            android:paddingRight="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            />
+
+
+        <TextView
+            android:id="@+id/text_view_variety"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Variety"
+            android:layout_alignParentRight="true"
+            android:paddingRight="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_price"
+            />
+
+        <TextView
+            android:id="@+id/text_view_kind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Kind"
+            android:layout_alignParentRight="true"
+            android:paddingRight="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_variety"
+            />
+
+        <TextView
+            android:id="@+id/text_view_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Kind"
+            android:layout_alignParentRight="true"
+            android:paddingRight="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_below="@id/text_view_kind"
+            />
+
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layerType="software"
+        android:src="@drawable/dash"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/info" />
+
+    <TextView
+        android:id="@+id/text_view_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:text="Text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:layout_below="@id/info"
+        />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layerType="software"
+        android:src="@drawable/dash"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/text_view_text" />
+
+    <ImageView
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/text_view_text"/>
+
+
+
+
+</RelativeLayout>
