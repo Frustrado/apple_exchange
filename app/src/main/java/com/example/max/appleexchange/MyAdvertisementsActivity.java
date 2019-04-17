@@ -33,17 +33,12 @@ import static android.content.ContentValues.TAG;
 public class MyAdvertisementsActivity extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
-
-
-
+    private ProgressBar progressCircle;
     private FirebaseStorage storage;
     private FirebaseFirestore databaseReference;
     private FirebaseFirestore databaseReferenceUsers;
 
     private List<Upload> mUploads;
-
-    private ProgressBar progressCircle;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,10 +96,7 @@ public class MyAdvertisementsActivity extends AppCompatActivity implements OnIte
                             }
                         }
 
-                        Log.d(TAG, "Zero" );
                         for (final DocumentSnapshot doc : snapshots) {
-                            Log.d(TAG, "First");
-
                             final Upload upload = new Upload();
                             Log.d(TAG, "newUpload");
                             databaseReferenceUsers.collection("users").document(doc.getString("userId"))
@@ -112,31 +104,22 @@ public class MyAdvertisementsActivity extends AppCompatActivity implements OnIte
                                         @Override
                                         public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                                             upload.setKey(doc.getId());
-                                            Log.d(TAG, "setPhone");
                                             upload.setPhone(Integer.toString(documentSnapshot.getLong("phone").intValue()));
-                                            Log.d(TAG, "Second" );
-                                            Log.d(TAG, "Third" );
                                             upload.setCity(doc.getString("city"));
                                             upload.setImageUrl(doc.getString("photo"));
                                             upload.setKind(doc.getString("kind"));
                                             upload.setType(doc.getString("type"));
                                             upload.setPrice(doc.getString("price") + "zł");
-
                                             upload.setVoivodeship(doc.getString("voivodeship"));
                                             upload.setVariety(doc.getString("variety"));
 
-
                                             mUploads.add(upload);
-                                            Log.d(TAG, "fourth" );
                                             imageAdapter.notifyDataSetChanged();
                                         }
 
                                     });
 
                         }
-
-                        Log.d(TAG, "fifth" );
-
                         progressCircle.setVisibility(View.INVISIBLE);
 
                     }

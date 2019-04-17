@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +42,6 @@ public class FilterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG,"siema");
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         filter=view.findViewById(R.id.button_exp_fil);
@@ -49,16 +49,11 @@ public class FilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-              /*for(int i=0;i<15;i++)
-                    Log.d(TAG,"siema  "+ retData.get(0).getSerial().get(i).getSerialNo() + "    " +retData.get(0).getSerial().get(i).getIsRedeemed());*/
-
                 Intent intent = new Intent(getContext(), BrowseActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("retData",retData);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-
             }
         });
 
@@ -79,12 +74,8 @@ public class FilterFragment extends Fragment {
         mAdapter = new CustomExpandableListAdapter(getActivity(), data);
         expList.setAdapter(mAdapter);
 
-
-
         return view;
-
     }
-
 
     private ArrayList<Category> InitData() {
         retData = new ArrayList<Category>();
@@ -113,9 +104,6 @@ public class FilterFragment extends Fragment {
 
         return retData;
     }
-
-
-
 
     private void prepareData(View view) {
         voivodeship = getResources().getStringArray(R.array.voivodeship);

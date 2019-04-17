@@ -92,8 +92,6 @@ public class LoginFragment extends Fragment {
                 });
     }
 
-
-
     public void after_login_state()
     {
         if(FirebaseAuth.getInstance()!=null) {

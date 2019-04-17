@@ -50,7 +50,6 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Upload uploadCurrent = uploadFilter.get(i);
-        //imageViewHolder.textViewName.setText(uploadCurrent.getName());
         imageViewHolder.textViewKind.setText(uploadCurrent.getKind());
         imageViewHolder.textViewType.setText(uploadCurrent.getType());
         imageViewHolder.textViewVoivodeship.setText(uploadCurrent.getVoivodeship());
@@ -64,9 +63,6 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
                 .fit()
                 .centerCrop()
                 .into(imageViewHolder.imageView);
-
-
-
     }
 
     @Override
@@ -74,6 +70,7 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
         return uploadFilter.size();
     }
 
+    public Upload getItem(int i){return uploadFilter.get(i); }
 
     @Override
     public Filter getFilter() {
@@ -81,18 +78,14 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String query = charSequence.toString();
-                //List valid = Arrays.asList(voivodeships);
                 List<Upload> filtered = new ArrayList<>();
-                Log.d(TAG, "1");
                 if (query.isEmpty()) {
                     Log.d(TAG, "2");
                     filtered = uploadList;
                 } else {
-                    Log.d(TAG, "3" + uploadList.isEmpty());
                     for (Upload voi : uploadList) {
                         if(!voivodeships.isEmpty()&&!kind.isEmpty()&&!type.isEmpty())
                         if (voivodeships.contains(voi.getVoivodeship())&&kind.contains(voi.getKind())&&type.contains(voi.getType())) {
-                            Log.d(TAG, "4");
                             filtered.add(voi);
                         }
                     }
@@ -111,14 +104,12 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
             }
         };
     }
-
     public interface MoviesAdapterListener {
         void onSelected(String item);
     }
 
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //public TextView textViewName;
         public TextView textViewKind;
         public TextView textViewType;
         public TextView textViewVoivodeship;
@@ -142,6 +133,7 @@ public class ImageAdapterBrowse extends RecyclerView.Adapter<ImageAdapterBrowse.
             itemView.setOnClickListener(this);
 
         }
+
 
         @Override
         public void onClick(View v) {

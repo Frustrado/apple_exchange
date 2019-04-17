@@ -12,17 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.max.appleexchange.expandableList.Category;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static android.content.ContentValues.TAG;
 
 public class BrowseActivity extends AppCompatActivity implements OnItemClickListener {
@@ -36,11 +33,12 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
     private FirebaseFirestore databaseReferenceUsers;
 
     private List<Upload> mUploads;
+    private List<Upload> mUploadsFiltered;
 
     private List<String> voivodeships;
     private List<String> kinds;
     private List<String> types;
-
+    private ArrayList<Category> advData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,30 +76,33 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
         databaseReference=FirebaseFirestore.getInstance();
         databaseReferenceUsers=FirebaseFirestore.getInstance();
 
-
-
         final Bundle bundle = getIntent().getExtras();
-
         ArrayList<Category> retData=null;
 
         if(bundle!=null) {
             voivodeships=new ArrayList<>();
             types=new ArrayList<>();
             kinds=new ArrayList<>();
-            Log.d(TAG, "bundle porbrane ");
+            Log.d(TAG, "bundle pobrane ");
             retData = (ArrayList<Category>) bundle.getSerializable("retData");
-            for (int i = 0; i < 16; i++)
-                if(retData.get(0).getChoice().get(i).getIsChecked()){
-                    voivodeships.add(retData.get(0).getChoice().get(i).getChoiceNo());
-                Log.d(TAG, "V:  " + retData.get(0).getChoice().get(i).getChoiceNo() + "    " + retData.get(0).getChoice().get(i).getIsChecked());}
-            for (int i = 0; i < 2; i++)
-                if(retData.get(1).getChoice().get(i).getIsChecked()){
-                    kinds.add(retData.get(1).getChoice().get(i).getChoiceNo());
-                    Log.d(TAG, "K:  " + retData.get(1).getChoice().get(i).getChoiceNo() + "    " + retData.get(1).getChoice().get(i).getIsChecked());}
-            for (int i = 0; i < 2; i++)
-                if(retData.get(2).getChoice().get(i).getIsChecked()){
-                    types.add(retData.get(2).getChoice().get(i).getChoiceNo());
-                    Log.d(TAG, "T:  " + retData.get(2).getChoice().get(i).getChoiceNo() + "    " + retData.get(2).getChoice().get(i).getIsChecked());}
+            if(retData!=null) {
+                advData = retData;
+                for (int i = 0; i < 16; i++)
+                    if (retData.get(0).getChoice().get(i).getIsChecked()) {
+                        voivodeships.add(retData.get(0).getChoice().get(i).getChoiceNo());
+                        Log.d(TAG, "V:  " + retData.get(0).getChoice().get(i).getChoiceNo() + "    " + retData.get(0).getChoice().get(i).getIsChecked());
+                    }
+                for (int i = 0; i < 2; i++)
+                    if (retData.get(1).getChoice().get(i).getIsChecked()) {
+                        kinds.add(retData.get(1).getChoice().get(i).getChoiceNo());
+                        Log.d(TAG, "K:  " + retData.get(1).getChoice().get(i).getChoiceNo() + "    " + retData.get(1).getChoice().get(i).getIsChecked());
+                    }
+                for (int i = 0; i < 2; i++)
+                    if (retData.get(2).getChoice().get(i).getIsChecked()) {
+                        types.add(retData.get(2).getChoice().get(i).getChoiceNo());
+                        Log.d(TAG, "T:  " + retData.get(2).getChoice().get(i).getChoiceNo() + "    " + retData.get(2).getChoice().get(i).getIsChecked());
+                    }
+            }
 
         }
 
@@ -126,7 +127,6 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
                     databaseReferenceUsers.collection("users").document(doc.getString("userId")).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                            Log.d(TAG, "eh" +Integer.toString(documentSnapshot.getLong("phone").intValue()));
                             upload.setPhone(Integer.toString(documentSnapshot.getLong("phone").intValue()));
                             upload.setText(doc.getString("text"));
                             upload.setCity(doc.getString("city"));
@@ -134,48 +134,33 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
                             upload.setKind(doc.getString("kind"));
                             upload.setType(doc.getString("type"));
                             upload.setPrice(doc.getString("price") + "zł");
-
                             upload.setVoivodeship(doc.getString("voivodeship"));
                             upload.setVariety(doc.getString("variety"));
-
                             upload.setName(documentSnapshot.getString("name"));
 
-
                             mUploads.add(upload);
-                            if(bundle!=null)
-                            imageAdapter.getFilter().filter("mazowieckie"); //filtrowanie
+                            if(bundle!=null && advData!=null)
+                                imageAdapter.getFilter().filter("mazowieckie"); //filtrowanie
                             imageAdapter.notifyDataSetChanged();
-
                         }
                     });
-
-
-
                 }
-
-
-                progressCircle.setVisibility(View.INVISIBLE);
-
+               progressCircle.setVisibility(View.INVISIBLE);
             }
         });
-
-
-
 }
-
     @Override
     public void onItemClick(int position) {
-        Upload selectedItem = mUploads.get(position);
+        Upload selectedItem;
+        selectedItem = imageAdapter.getItem(position);
         final String selectedKey = selectedItem.getKey();
-        //Log.d(TAG, "bundle porbrane " + selectedItem.getName());
         AdvertisementFragment advertisementFragment=new AdvertisementFragment();
         recyclerView.setVisibility(View.GONE);
-
         Bundle bundle2 = new Bundle();
         bundle2.putSerializable("selecteditem",selectedItem);
+        bundle2.putSerializable("advData",advData);
         advertisementFragment.setArguments(bundle2);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,advertisementFragment).commit();
-
         Toast.makeText(this,"Kliknięcie" + position,Toast.LENGTH_SHORT).show();
     }
 
