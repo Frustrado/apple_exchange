@@ -38,7 +38,9 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
     private List<String> voivodeships;
     private List<String> kinds;
     private List<String> types;
-    private ArrayList<Category> advData;
+    private ArrayList<Category> advData=null;
+    private ArrayList<Category> filterData;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,8 +62,14 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
         toolbarFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                if(advData!=null)
+                    bundle.putSerializable("retData",advData);
+
                 recyclerView.setVisibility(View.GONE);
                 FilterFragment filterFragment=new FilterFragment();
+                filterFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,filterFragment).commit();
                 Toast.makeText(getBaseContext(), "Kliknięto filtruj", Toast.LENGTH_SHORT).show();
             }

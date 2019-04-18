@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:twittersdk="http://schemas.android.com/tools"
     android:background="@android:color/white">
 
     <android.support.v7.widget.CardView
@@ -57,6 +58,49 @@
                 android:layout_centerHorizontal="true"
                 android:rotation="45"
                 android:layout_height="20dp" />
+
+
+            <ImageView
+                android:layout_marginTop="40dp"
+                android:id="@+id/apple"
+                android:layout_below="@id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_apple_logo_round"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/project_wpam"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/apple"
+                android:layout_marginTop="0dp"
+                android:textAlignment="center"
+                android:text="Projekt WPAM"
+                android:textSize="70dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorAccent"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_apple_logo_round"
+                android:layout_centerVertical="true"
+                />
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_apple_logo_round"
+                android:layout_centerVertical="true"
+                />
+            <ImageView
+                android:layout_below="@id/project_wpam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_apple_logo_round"
+                android:layout_centerInParent="true"/>
 
 
 

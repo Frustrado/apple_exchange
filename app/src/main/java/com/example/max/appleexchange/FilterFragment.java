@@ -1,5 +1,6 @@
 package com.example.max.appleexchange;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ public class FilterFragment extends Fragment {
     private CustomExpandableListAdapter mAdapter;
     private ExpandableListView expList;
     private ArrayList<Category> retData;
+    private ArrayList<Category> backData;
 
     private Button filter;
     public FilterFragment(){
@@ -43,6 +45,10 @@ public class FilterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
+
+        Bundle bundle = new Bundle();
+        bundle=getArguments();
+        backData=(ArrayList<Category>)bundle.getSerializable("retData");
 
         filter=view.findViewById(R.id.button_exp_fil);
         filter.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +70,11 @@ public class FilterFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(),BrowseActivity.class));
+                Intent intent = new Intent(getContext(),BrowseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("retData",backData);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -78,27 +88,60 @@ public class FilterFragment extends Fragment {
     }
 
     private ArrayList<Category> InitData() {
-        retData = new ArrayList<Category>();
 
+        retData = new ArrayList<Category>();
         ArrayList<Choice> serial1 = new ArrayList<Choice>();
 
         voivodeship = getResources().getStringArray(R.array.voivodeship);
         kind = getResources().getStringArray(R.array.kindOfApple);
         type = getResources().getStringArray(R.array.typeOfAdvertisement);
-        for(int i=0;i<voivodeship.length;i++){
-        Choice info1 = new Choice(voivodeship[i], false); serial1.add(info1);}
+
+        Choice info1;
+        for (int i = 0; i < voivodeship.length; i++) {
+
+            if (backData == null || backData.get(0).getChoice().get(i).getIsChecked()){
+                info1 = new Choice(voivodeship[i], true);
+                serial1.add(info1);
+            }
+
+            else{
+                info1=new Choice(voivodeship[i], false);
+                serial1.add(info1);
+            }
+
+        }
+
         Category voucher1 = new Category("Województwo", serial1);
         retData.add(voucher1);
+        //Log.d(ContentValues.TAG, "bundle pobrane " + retData.get(0).getChoice().get(0).getIsChecked());
 
         ArrayList<Choice> serial2 = new ArrayList<Choice>();
+        Choice info4;
         for(int i=0;i<kind.length;i++){
-        Choice info4 = new Choice(kind[i], false); serial2.add(info4);}
+            if (backData == null || backData.get(1).getChoice().get(i).getIsChecked()){
+                info4 = new Choice(kind[i], true);
+                serial2.add(info4);}
+        else {
+                info4 = new Choice(kind[i], false);
+                serial2.add(info4);
+            }
+
+
+        }
         Category voucher2 = new Category("Rodzaj", serial2);
         retData.add(voucher2);
 
         ArrayList<Choice> serial3 = new ArrayList<Choice>();
-        for(int i=0;i<type.length;i++){
-        Choice info7 = new Choice(type[i], false); serial3.add(info7);}
+        Choice info7;
+        for(int i=0;i<type.length;i++) {
+            if (backData == null || backData.get(2).getChoice().get(i).getIsChecked()) {
+                info7 = new Choice(type[i], true);
+                serial3.add(info7);
+            } else {
+                info7 = new Choice(type[i], false);
+                serial3.add(info7);
+            }
+        }
         Category voucher3 = new Category("Typ", serial3);
         retData.add(voucher3);
 

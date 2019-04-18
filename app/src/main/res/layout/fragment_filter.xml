@@ -13,7 +13,16 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <Button
+        android:id="@+id/button_exp_fil"
+        android:layout_width="50dp"
+        android:paddingRight="30dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_done"
+        android:layout_gravity="right"/>
+    </android.support.v7.widget.Toolbar>
+
 
     <ExpandableListView
         android:paddingTop="?attr/actionBarSize"
@@ -21,13 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="1dp"/>
-    <Button
+   <!-- <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/exp_category"
         android:text="Filtruj"
-        android:id="@+id/button_exp_fil"/>
-
+        android:id="@+id/button_exp_fil"
+        android:background="@color/colorPrimary2"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"/>-->
 
 
 
