@@ -146,6 +146,7 @@ public class MyAdvertisementsActivity extends AppCompatActivity implements OnIte
                 Toast.makeText(MyAdvertisementsActivity.this,"Uunieto ogloszenie",Toast.LENGTH_SHORT).show();
             }
         });
+        imageAdapter.notifyDataSetChanged();
         Toast.makeText(this,"Usunięcie" + position,Toast.LENGTH_SHORT).show();
     }
 

@@ -1,13 +1,18 @@
 package com.example.max.appleexchange.expandableList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -15,16 +20,20 @@ import android.widget.TextView;
 
 import com.example.max.appleexchange.R;
 
+import static android.content.ContentValues.TAG;
+
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private Activity activity;
 	private ArrayList<Category> data;
 	private LayoutInflater inflater;
+
 	
 	public CustomExpandableListAdapter(Activity a, ArrayList<Category> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 	}
 	
 	@Override
@@ -40,16 +49,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public View getChildView(int groupPosition, int childPosition,
+	public View getChildView(final int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View vi = convertView;
 		if(vi == null) {
 			vi = inflater.inflate(R.layout.expand_list_child, parent, false);
 		}
-		
 		TextView textViewChoiceNo = (TextView)vi.findViewById(R.id.text_view_choice);
-		CheckBox buttonCheck = (CheckBox)vi.findViewById(R.id.button_checkbox);
+		final CheckBox buttonCheck = (CheckBox)vi.findViewById(R.id.button_checkbox);
         buttonCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -62,16 +70,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 			
 		});
+
 		
 		Choice choice = data.get(groupPosition).getChoice().get(childPosition);
         buttonCheck.setTag(choice);
-		
+
 		String choiceNo = choice.getChoiceNo();
 		Boolean isChecked = choice.getIsChecked();
 
         textViewChoiceNo.setText(choiceNo);
         buttonCheck.setChecked(isChecked);
-		
+
+
 		return vi;
 	}
 
@@ -107,7 +117,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 		if(vi == null){
 			vi = inflater.inflate(R.layout.expand_list_parent, parent, false);
 		}
-		
+
 		TextView textViewCategory = (TextView)vi.findViewById(R.id.text_view_category);
 		String value = data.get(groupPosition).getValue().toString();
 
@@ -126,5 +136,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 
 }

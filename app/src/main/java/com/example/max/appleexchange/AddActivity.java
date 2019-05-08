@@ -87,7 +87,7 @@ public class AddActivity extends AppCompatActivity {
         addAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEmpty(city)&&isEmpty(text))
+                if(isEmpty(city)&&isEmpty(text)&&isEmpty(price)&&imageUri!=null)
                     addAdvertisement(mAuth,spinnerType,spinnerVariety,spinnerVoivodeship,spinnerKind,city,
                             price,text);
                 else

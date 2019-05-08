@@ -306,8 +306,8 @@
                         android:gravity="top|left"
                         android:inputType="textMultiLine"
                         android:lines="5"
-                        android:maxLines="7"
-                        android:minLines="4"
+                        android:maxLines="5"
+                        android:minLines="1"
                         android:scrollbars="vertical" />
 
                 </RelativeLayout>

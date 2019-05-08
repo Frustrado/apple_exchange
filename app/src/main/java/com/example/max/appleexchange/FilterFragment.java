@@ -148,6 +148,7 @@ public class FilterFragment extends Fragment {
         return retData;
     }
 
+
     private void prepareData(View view) {
         voivodeship = getResources().getStringArray(R.array.voivodeship);
         kind = getResources().getStringArray(R.array.kindOfApple);
