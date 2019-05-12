@@ -149,7 +149,9 @@ public class BrowseActivity extends AppCompatActivity implements OnItemClickList
                             mUploads.add(upload);
                             if(bundle!=null && advData!=null)
                                 imageAdapter.getFilter().filter("mazowieckie"); //filtrowanie
-                            imageAdapter.notifyDataSetChanged();
+                            imageAdapter.notifyItemInserted(0);
+                            imageAdapter.notifyItemRemoved(0);
+                            //imageAdapter.notifyDataSetChanged();
                         }
                     });
                 }
