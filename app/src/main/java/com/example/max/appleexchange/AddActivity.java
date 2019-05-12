@@ -53,6 +53,7 @@ public class AddActivity extends AppCompatActivity {
     private Button addPhoto;
     private ImageView imageView;
     private Uri imageUri;
+    private boolean flag;
     private ProgressBar progressBar;
     String uploadId;
     //Firebase
@@ -87,11 +88,20 @@ public class AddActivity extends AppCompatActivity {
         addAdvertisement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEmpty(city)&&isEmpty(text)&&isEmpty(price)&&imageUri!=null)
-                    addAdvertisement(mAuth,spinnerType,spinnerVariety,spinnerVoivodeship,spinnerKind,city,
-                            price,text);
-                else
-                    Toast.makeText(AddActivity.this, "Wprowadz poprawne dane", Toast.LENGTH_SHORT).show();
+                if(imageUri!=null) {
+                    if (isEmpty(city) && isEmpty(text) && isEmpty(price))
+                        addAdvertisement(mAuth, spinnerType, spinnerVariety, spinnerVoivodeship, spinnerKind, city,
+                                price, text,true);
+                    else
+                        Toast.makeText(AddActivity.this, "Wprowadz poprawne dane", Toast.LENGTH_SHORT).show();
+                }else{
+                    if (isEmpty(city) && isEmpty(text) && isEmpty(price))
+                        addAdvertisement(mAuth, spinnerType, spinnerVariety, spinnerVoivodeship, spinnerKind, city,
+                                price, text,false);
+                    else
+                        Toast.makeText(AddActivity.this, "Wprowadz poprawne dane", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         spinnerType=findViewById(R.id.spinner1);
@@ -138,10 +148,10 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void addAdvertisement(FirebaseAuth mAuth,Spinner spinnerType, Spinner spinnerVariety, Spinner spinnerVoivodeship,
-                                  Spinner spinnerKind, EditText city, EditText price, EditText text) {
+                                  Spinner spinnerKind, EditText city, EditText price, EditText text,boolean flag) {
         writeNewAdvertisement(mAuth.getUid().toString(),spinnerType.getSelectedItem().toString(),spinnerVariety.getSelectedItem().toString(),
                 spinnerVoivodeship.getSelectedItem().toString(),spinnerKind.getSelectedItem().toString(),
-                city.getText().toString(),price.getText().toString(),text.getText().toString());
+                city.getText().toString(),price.getText().toString(),text.getText().toString(),flag);
 
 
 
@@ -149,77 +159,113 @@ public class AddActivity extends AppCompatActivity {
 
 
     private void writeNewAdvertisement(final String userId,final String type,final String variety,final String voivodeship,
-                                       final String kind,final String city,final String price,final String text)
+                                       final String kind,final String city,final String price,final String text, boolean flag)
     {
+        if(flag==true) {
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                    + "." + getFileExtension(imageUri));
+            // StorageReference ref = storageReference.child("uploads"+"/"+imageUri);
 
-        final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
-                + "." + getFileExtension(imageUri));
-       // StorageReference ref = storageReference.child("uploads"+"/"+imageUri);
-        final UploadTask uploadTask = fileReference.putFile(imageUri);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Uploadedphoto:failure");
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "Uploadedphoto:success");
-                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                            @Override
-                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                                if(!task.isSuccessful()){
-                                    throw task.getException();
-                                }
-                                Log.d(TAG, "UploadedphotoToDatabase:success");
-                                return fileReference.getDownloadUrl();
+            final UploadTask uploadTask = fileReference.putFile(imageUri);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "Uploadedphoto:failure");
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d(TAG, "Uploadedphoto:success");
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
                             }
-                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-                                if(task.isSuccessful()){
-                                    uploadId = task.getResult().toString();
-                                    Log.d(TAG, "UploadedphotoToDatabase:success"  + uploadId);
+                            Log.d(TAG, "UploadedphotoToDatabase:success");
+                            return fileReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                uploadId = task.getResult().toString();
+                                Log.d(TAG, "UploadedphotoToDatabase:success" + uploadId);
 
 
-                                    Map<String,Object> advertisement=new HashMap<>();
-                                    advertisement.put("userId",userId);
-                                    advertisement.put("type",type);
-                                    advertisement.put("variety",variety);
-                                    advertisement.put("voivodeship",voivodeship);
-                                    advertisement.put("kind",kind);
-                                    advertisement.put("city",city);
-                                    advertisement.put("price",price);
-                                    advertisement.put("text",text);
-                                    advertisement.put("photo",uploadId);
+                                Map<String, Object> advertisement = new HashMap<>();
+                                advertisement.put("userId", userId);
+                                advertisement.put("type", type);
+                                advertisement.put("variety", variety);
+                                advertisement.put("voivodeship", voivodeship);
+                                advertisement.put("kind", kind);
+                                advertisement.put("city", city);
+                                advertisement.put("price", price);
+                                advertisement.put("text", text);
+                                advertisement.put("photo", uploadId);
 
 
-                                    mDatabase.collection("advertisements").document().set(advertisement)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d(TAG, "AdvertisementDatabase:success");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.d(TAG, "AdvertisementDatabase:failure");
-                                                }
-                                            });
+                                mDatabase.collection("advertisements").document().set(advertisement)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "AdvertisementDatabase:success");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d(TAG, "AdvertisementDatabase:failure");
+                                            }
+                                        });
 
 
-                                }
                             }
-                        });
-                    }
-                });
-        Log.d(TAG, "UploadedphotoToDatabase:success"  + uploadId);
-        Toast.makeText(this, "Ogłoszenie zostało dodane",
-                Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+                        }
+                    });
+                }
+            });
+            Log.d(TAG, "UploadedphotoToDatabase:success" + uploadId);
+            Toast.makeText(this, "Ogłoszenie zostało dodane",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
+
+        }else
+        {
+            Map<String, Object> advertisement = new HashMap<>();
+            advertisement.put("userId", userId);
+            advertisement.put("type", type);
+            advertisement.put("variety", variety);
+            advertisement.put("voivodeship", voivodeship);
+            advertisement.put("kind", kind);
+            advertisement.put("city", city);
+            advertisement.put("price", price);
+            advertisement.put("text", text);
+            advertisement.put("photo", "https://firebasestorage.googleapis.com/v0/b/appleexchange-40a3a.appspot.com/o/uploads%2Fpobrane.png?alt=media&token=73f3fdd0-eb83-49fa-b291-431ffee37ea5");
+
+
+            mDatabase.collection("advertisements").document().set(advertisement)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "AdvertisementDatabase:success");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "AdvertisementDatabase:failure");
+                        }
+                    });
+            Log.d(TAG, "UploadedphotoToDatabase:success" + uploadId);
+            Toast.makeText(this, "Ogłoszenie zostało dodane",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+        }
     }
 
 
